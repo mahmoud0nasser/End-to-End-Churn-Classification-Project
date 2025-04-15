@@ -1,0 +1,9 @@
+fastapi==0.115.12
+uvicorn==0.34.1
+scikit-learn==1.6.1
+xgboost==3.0.0
+imbalanced-learn==0.13.0
+matplotlib==3.10.1
+seaborn==0.13.2
+python-dotenv==1.1.0
+python-multipart==0.0.20

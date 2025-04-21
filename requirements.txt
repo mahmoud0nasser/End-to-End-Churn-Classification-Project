@@ -9,3 +9,4 @@ python-dotenv==1.1.0
 python-multipart==0.0.20
 mealpy==3.0.1
 pydantic==2.11.3
+pydantic-settings==2.9.1

@@ -117,7 +117,7 @@ docker run -d -p 8080:8080 churn-prediction-api
 
 ## 📊 Application Screenshots
 
-### Data Processing
+### Final UI
 ![User Interface](Misc/ScreenAPP.PNG)
 
 ## API Documentation

@@ -12,26 +12,66 @@ This project provides a robust REST API for predicting customer churn using mult
 - **Docker Support**: Containerized deployment ready
 
 ## Project Structure
-``` bash
-project/
-│   .env.example           # Example environment variables template
-│   .gitignore             # Git ignore rules
-│   Dockerfile             # Docker configuration
-│   main.py               # FastAPI application entry point
-│   README.md             # Project documentation
-│   requirements.txt      # Python dependencies
-├───models/               # Trained model files
-│       forest_tuned.pkl  # Random Forest model
-│       preprocessor.pkl  # Data preprocessor
-│       xgb-tuned.pkl    # XGBoost model
-├───notebooks/            # Jupyter notebooks
-│       notebook.ipynb    # Model development notebook
-└───utils/               # Utility modules
-        config.py        # Configuration settings
-        CustomerData.py  # Data models
-        inference.py     # Prediction logic
-        __init__.py     # Package initialization
+
 ```
+.
+├── assets/                    # Model files and preprocessing pipeline
+│   ├── forest_tuned.pkl      # Trained Random Forest model
+│   ├── preprocessor.pkl      # Data preprocessing pipeline
+│   └── xgb_tuned.pkl        # Trained XGBoost model
+│
+├── dataset/                  # Training data directory
+│   └── Churn_Modelling.csv  # Original dataset for model training
+│
+├── frontend/                # Web interface
+│   └── index.html          # Interactive UI for model predictions
+│
+├── Misc/
+│   └── AppScreen.PNG         # Application UI screen capture
+│
+├── notebooks/               # Jupyter notebooks for analysis
+│   └── notebook.ipynb      # Model development and training notebook
+│
+├── utils/                   # Utility functions and configurations
+│   ├── __init__.py
+│   ├── config.py           # Configuration and model loading
+│   ├── inference.py        # Prediction logic
+│   └── request.py          # API request data models
+│
+├── .env                     # Environment variables (create from .env.example)
+├── .env.example            # Example environment variables template
+├── main.py                 # FastAPI application entry point
+├── Dockerfile              # Docker configuration for containerization
+└── requirements.txt        # Python package dependencies
+```
+
+## File Descriptions
+
+### Core Files
+- `main.py`: FastAPI application with API endpoints for predictions
+- `Dockerfile`: Container configuration for Docker deployment
+- `requirements.txt`: List of Python package dependencies
+
+### Asset Files
+- `assets/forest_tuned.pkl`: Trained Random Forest model for churn prediction
+- `assets/xgb_tuned.pkl`: Trained XGBoost model for churn prediction
+- `assets/preprocessor.pkl`: Scikit-learn preprocessing pipeline for data transformation
+
+### Utility Modules
+- `utils/config.py`: Configuration settings, model loading, and environment variables
+- `utils/inference.py`: Functions for making predictions using the trained models
+- `utils/request.py`: Pydantic models for API request validation
+
+### Data and Analysis
+- `dataset/Churn_Modelling.csv`: Dataset used for training the models
+- `notebooks/notebook.ipynb`: Jupyter notebook containing model development process
+
+### Frontend
+- `frontend/index.html`: User-friendly web interface for making predictions
+
+### Configuration
+- `.env.example`: Template for environment variables
+- `.env`: Active environment variables file (create from .env.example)
 
 ## Prerequisites
 - Python 3.9+
@@ -74,6 +114,11 @@ docker build -t churn-prediction-api .
 ```bash
 docker run -d -p 8080:8080 churn-prediction-api
 ```
+
+## 📊 Application Screenshots
+
+### Data Processing
+![User Interface](Misc/AppScreen.PNG)
 
 ## API Documentation
 
@@ -200,3 +245,91 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Support
 For support, please open an issue in the GitHub repository or contact the maintainers.
+
+## Quick Start
+
+### 1. Environment Setup
+
+```bash
+# Clone the repository
+git clone [your-repo-url]
+cd End-to-End-Churn-Classification-Project
+
+# Create and activate virtual environment (Windows)
+python -m venv venv
+.\venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Set up environment variables
+cp .env.example .env
+# Edit .env file with your SECRET_KEY_TOKEN
+```
+
+### 2. Running the Application
+
+#### Option 1: Running Locally
+
+```bash
+# Start the FastAPI server
+python main.py
+```
+
+The API will be available at http://localhost:8000
+
+#### Option 2: Using Docker
+
+```bash
+# Build the Docker image
+docker build -t churn-prediction .
+
+# Run the container
+docker run -p 8000:8000 -d churn-prediction
+```
+
+### 3. Using the Web Interface
+
+1. Open `frontend/index.html` in your web browser
+2. Enter the required customer information
+3. Provide your API key
+4. Select the model (Random Forest or XGBoost)
+5. Click "Predict" to get the churn prediction
+
+### 4. API Endpoints
+
+- `GET /` - Health check endpoint
+- `POST /predict/forest` - Get prediction using Random Forest model
+- `POST /predict/xgboost` - Get prediction using XGBoost model
+
+All endpoints require an API key to be passed in the `X-API-Key` header.
+
+### Example API Request
+
+```bash
+curl -X POST http://localhost:8000/predict/forest \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: your-api-key" \
+  -d '{
+    "Contract": "Month-to-month",
+    "InternetService": "DSL",
+    "MonthlyCharges": 50.0,
+    "TotalCharges": 1000.0,
+    "tenure": 12,
+    "PhoneService": "Yes"
+  }'
+```
+
+## Model Information
+
+The project includes two pre-trained models:
+1. Random Forest Classifier
+2. XGBoost Classifier
+
+Both models are trained on customer data with features including contract type, service subscriptions, charges, and tenure.
+
+## Security
+
+- API key authentication is required for all endpoints
+- CORS is enabled with appropriate middleware
+- Environment variables are used for sensitive information

@@ -18,6 +18,28 @@
     }
     .result-box {
       display: none;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 8px;
+    }
+    .result-box.success {
+      background-color: #d4edda;
+      border-color: #c3e6cb;
+      color: #155724;
+    }
+    .result-box.error {
+      background-color: #f8d7da;
+      border-color: #f5c6cb;
+      color: #721c24;
+    }
+    .result-box h5 {
+      margin-bottom: 15px;
+    }
+    .result-box p {
+      margin: 5px 0;
+    }
+    .result-box span {
+      font-weight: bold;
     }
   </style>
 </head>
@@ -31,93 +53,122 @@
           </div>
           <div class="card-body">
             <form id="predictionForm">
-              <div class="row g-3 form-section">
-                <div class="col-md-6">
-                  <label class="form-label">Credit Score</label>
-                  <input type="number" class="form-control" name="CreditScore" required />
-                </div>
+              <div class="form-section">
+                <h5>Customer Information</h5>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label"><i class="bi bi-credit-card"></i> Credit Score</label>
+                    <input type="number" class="form-control" name="CreditScore" placeholder="e.g., 650" min="300" max="850" required />
+                  </div>
 
-                <div class="col-md-6">
-                  <label class="form-label">Geography</label>
-                  <select class="form-select" name="Geography" required>
-                    <option value="France">France</option>
-                    <option value="Germany">Germany</option>
-                    <option value="Spain">Spain</option>
-                  </select>
-                </div>
+                  <div class="col-md-6">
+                    <label class="form-label"><i class="bi bi-globe"></i> Geography</label>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="Geography" value="France" id="geoFrance" required>
+                      <label class="form-check-label" for="geoFrance">France</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="Geography" value="Germany" id="geoGermany">
+                      <label class="form-check-label" for="geoGermany">Germany</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="Geography" value="Spain" id="geoSpain">
+                      <label class="form-check-label" for="geoSpain">Spain</label>
+                    </div>
+                  </div>
 
-                <div class="col-md-6">
-                  <label class="form-label">Gender</label>
-                  <select class="form-select" name="Gender" required>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                  </select>
-                </div>
+                  <div class="col-md-6">
+                    <label class="form-label"><i class="bi bi-gender-ambiguous"></i> Gender</label>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="Gender" value="Male" id="genderMale" required>
+                      <label class="form-check-label" for="genderMale">Male</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="Gender" value="Female" id="genderFemale">
+                      <label class="form-check-label" for="genderFemale">Female</label>
+                    </div>
+                  </div>
 
-                <div class="col-md-6">
-                  <label class="form-label">Age</label>
-                  <input type="number" class="form-control" name="Age" required />
-                </div>
+                  <div class="col-md-6">
+                    <label class="form-label"><i class="bi bi-person"></i> Age</label>
+                    <input type="number" class="form-control" name="Age" placeholder="e.g., 35" min="18" max="100" required />
+                  </div>
 
-                <div class="col-md-6">
-                  <label class="form-label">Tenure</label>
-                  <input type="number" class="form-control" name="Tenure" required />
-                </div>
+                  <div class="col-md-6">
+                    <label class="form-label"><i class="bi bi-clock"></i> Tenure</label>
+                    <input type="number" class="form-control" name="Tenure" placeholder="e.g., 5" min="0" max="10" required />
+                  </div>
 
-                <div class="col-md-6">
-                  <label class="form-label">Balance</label>
-                  <input type="number" class="form-control" name="Balance" step="0.01" required />
-                </div>
+                  <div class="col-md-6">
+                    <label class="form-label"><i class="bi bi-wallet"></i> Balance</label>
+                    <input type="number" class="form-control" name="Balance" placeholder="e.g., 10000.00" min="0" step="0.01" required />
+                  </div>
 
-                <div class="col-md-6">
-                  <label class="form-label">Number of Products</label>
-                  <input type="number" class="form-control" name="NumOfProducts" required />
-                </div>
+                  <div class="col-md-6">
+                    <label class="form-label"><i class="bi bi-box"></i> Number of Products</label>
+                    <input type="number" class="form-control" name="NumOfProducts" placeholder="e.g., 1" min="1" max="4" required />
+                  </div>
 
-                <div class="col-md-6">
-                  <label class="form-label">Has Credit Card</label>
-                  <select class="form-select" name="HasCrCard" required>
-                    <option value="1">Yes</option>
-                    <option value="0">No</option>
-                  </select>
-                </div>
+                  <div class="col-md-6">
+                    <label class="form-label"><i class="bi bi-credit-card-2-front"></i> Has Credit Card</label>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="HasCrCard" value="1" id="hasCrCardYes" required>
+                      <label class="form-check-label" for="hasCrCardYes">Yes</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="HasCrCard" value="0" id="hasCrCardNo">
+                      <label class="form-check-label" for="hasCrCardNo">No</label>
+                    </div>
+                  </div>
 
-                <div class="col-md-6">
-                  <label class="form-label">Is Active Member</label>
-                  <select class="form-select" name="IsActiveMember" required>
-                    <option value="1">Yes</option>
-                    <option value="0">No</option>
-                  </select>
-                </div>
+                  <div class="col-md-6">
+                    <label class="form-label"><i class="bi bi-person-check"></i> Is Active Member</label>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="IsActiveMember" value="1" id="isActiveYes" required>
+                      <label class="form-check-label" for="isActiveYes">Yes</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="IsActiveMember" value="0" id="isActiveNo">
+                      <label class="form-check-label" for="isActiveNo">No</label>
+                    </div>
+                  </div>
 
-                <div class="col-md-6">
-                  <label class="form-label">Estimated Salary</label>
-                  <input type="number" class="form-control" name="EstimatedSalary" step="0.01" required />
+                  <div class="col-md-6">
+                    <label class="form-label"><i class="bi bi-cash-stack"></i> Estimated Salary</label>
+                    <input type="number" class="form-control" name="EstimatedSalary" placeholder="e.g., 50000.00" min="0" step="0.01" required />
+                  </div>
                 </div>
               </div>
 
-              <div class="row g-3 form-section">
-                <div class="col-md-6">
-                  <label class="form-label">Select Model</label>
-                  <select class="form-select" name="model" required>
-                    <option value="forest">Random Forest</option>
-                    <option value="xgboost">XGBoost</option>
-                  </select>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label">API Key</label>
-                  <input type="password" class="form-control" name="apiKey" required />
+              <div class="form-section">
+                <h5>Prediction Settings</h5>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label"><i class="bi bi-gear"></i> Select Model</label>
+                    <select class="form-select" name="model" required>
+                      <option value="forest">Random Forest</option>
+                      <option value="xgboost">XGBoost</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label"><i class="bi bi-key"></i> API Key</label>
+                    <div class="input-group">
+                      <input type="password" class="form-control" name="apiKey" required />
+                      <button class="btn btn-outline-secondary" type="button" id="toggleApiKey">Show</button>
+                    </div>
+                  </div>
                 </div>
               </div>
 
               <div class="text-end">
-                <button type="submit" class="btn btn-success">
+                <button type="reset" class="btn btn-secondary">Reset</button>
+                <button type="submit" class="btn btn-success" id="predictButton">
                   <i class="bi bi-cpu"></i> Predict
                 </button>
               </div>
             </form>
 
-            <div id="result" class="alert mt-4 result-box" role="alert"></div>
+            <div id="result" class="result-box" role="alert"></div>
           </div>
         </div>
       </div>
@@ -127,6 +178,11 @@
   <script>
     document.getElementById('predictionForm').addEventListener('submit', async (e) => {
       e.preventDefault();
+      const predictButton = document.getElementById('predictButton');
+      const originalButtonHTML = predictButton.innerHTML;
+      predictButton.disabled = true;
+      predictButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Predicting...';
+
       const formData = new FormData(e.target);
       const data = {
         CreditScore: parseInt(formData.get('CreditScore')),
@@ -158,21 +214,36 @@
         const result = await response.json();
 
         if (response.ok) {
-          resultDiv.className = 'alert alert-success result-box';
+          resultDiv.className = 'result-box success';
           resultDiv.innerHTML = `
-            <h5>Prediction Success ✅</h5>
-            <p><strong>Churn Probability:</strong> ${(result.churn_probability * 100).toFixed(2)}%</p>
-            <p><strong>Prediction:</strong> ${result.churn_prediction}</p>
-          `;
+                <h5>Prediction Success ✅</h5>
+                <p><span>Churn Probability:</span> ${(result.churn_probability * 100).toFixed(2)}%</p>
+                <p><span>Prediction:</span> <span class="${result.churn_prediction === true ? 'text-danger' : 'text-success'}">${result.churn_prediction === true ? 'Exited' : 'Not Exited'}</span></p>
+        `;
         } else {
           throw new Error(result.detail || 'Prediction failed');
         }
       } catch (error) {
-        resultDiv.className = 'alert alert-danger result-box';
+        resultDiv.className = 'result-box error';
         resultDiv.innerHTML = `<strong>Error:</strong> ${error.message}`;
+      } finally {
+        predictButton.disabled = false;
+        predictButton.innerHTML = originalButtonHTML;
       }
 
       resultDiv.style.display = 'block';
+    });
+
+    const toggleApiKey = document.getElementById('toggleApiKey');
+    const apiKeyInput = document.querySelector('input[name="apiKey"]');
+    toggleApiKey.addEventListener('click', () => {
+      if (apiKeyInput.type === 'password') {
+        apiKeyInput.type = 'text';
+        toggleApiKey.textContent = 'Hide';
+      } else {
+        apiKeyInput.type = 'password';
+        toggleApiKey.textContent = 'Show';
+      }
     });
   </script>
 </body>
